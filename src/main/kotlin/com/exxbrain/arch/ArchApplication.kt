@@ -9,6 +9,10 @@ import org.springframework.context.annotation.Bean
 import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.env.get
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration
+import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -16,13 +20,17 @@ import org.springframework.web.filter.CorsFilter
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.net.InetAddress
 import java.util.*
+import javax.persistence.EntityManager
 
 
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableTransactionManagement
 @EnableConfigurationProperties(AppProperties::class)
-class ArchApplication(val properties: AppProperties) : WebMvcConfigurer {
+class ArchApplication(
+        private val properties: AppProperties,
+        private val entityManager: EntityManager)
+    : WebMvcConfigurer, RepositoryRestConfigurer {
 
     @Bean
     fun corsFilter(): CorsFilter {
@@ -33,6 +41,11 @@ class ArchApplication(val properties: AppProperties) : WebMvcConfigurer {
         }
         return CorsFilter(source)
     }
+
+    override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration) {
+        entityManager.metamodel.entities
+                .forEach { config.exposeIdsFor(it.javaType) }
+    }
 }
 
 val log: Logger = LoggerFactory.getLogger(ArchApplication::class.java)
@@ -40,11 +53,6 @@ val log: Logger = LoggerFactory.getLogger(ArchApplication::class.java)
 fun main(args: Array<String>) {
     val app = SpringApplication(ArchApplication::class.java)
     val defProperties: MutableMap<String, Any> = HashMap()
-    /*
-     * The default profile to use when no other profiles are defined
-     * This cannot be set in the application.yml file.
-     * See https://github.com/spring-projects/spring-boot/issues/1219
-     */
     /*
      * The default profile to use when no other profiles are defined
      * This cannot be set in the application.yml file.

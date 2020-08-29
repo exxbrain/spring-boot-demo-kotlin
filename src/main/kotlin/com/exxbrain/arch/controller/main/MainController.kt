@@ -1,4 +1,4 @@
-package com.exxbrain.arch.controller
+package com.exxbrain.arch.controller.main
 
 import com.exxbrain.arch.AppProperties
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,12 +13,12 @@ class MainController(val props: AppProperties) {
     }
 
     @GetMapping("/health")
-    fun health() : Health {
-        return Health(ServerStatus.OK)
+    fun health() : HealthDTO {
+        return HealthDTO(ServerStatusDTO.OK)
     }
 
     @GetMapping("/version")
-    fun version() : Version {
-        return Version(props.version)
+    fun version() : VersionDTO {
+        return VersionDTO(props.version)
     }
 }

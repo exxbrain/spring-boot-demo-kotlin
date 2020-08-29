@@ -60,7 +60,7 @@ liquibase {
                 "username" to "postgres",
                 "password" to "12345",
                 "changeLogFile" to diffChangelogFile,
-                "referenceUrl" to "hibernate:spring:com.exxbrain.arch.model.entity?dialect=org.hibernate.dialect.PostgreSQLDialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
+                "referenceUrl" to "hibernate:spring:com.exxbrain.arch.user.entity?dialect=org.hibernate.dialect.PostgreSQLDialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
                 "defaultSchemaName" to "",
                 "logLevel" to "debug",
                 "classpath" to "$buildDir/classes/kotlin/main"
@@ -75,10 +75,10 @@ val springCloudVersion by extra ("Hoxton.SR7")
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.liquibase:liquibase-core")
-    implementation("javax.validation:validation-api")
     runtimeOnly("org.postgresql:postgresql")
     liquibaseRuntime ("org.liquibase:liquibase-core")
     liquibaseRuntime ("org.liquibase.ext:liquibase-hibernate5:3.6")
