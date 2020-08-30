@@ -7,6 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     id("org.asciidoctor.convert") version "1.5.8"
     id("org.liquibase.gradle") version "2.0.4"
+    id("com.google.cloud.tools.jib") version "2.5.0"
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
     kotlin("plugin.jpa") version "1.3.72"
@@ -122,6 +123,16 @@ tasks.asciidoctor {
     dependsOn(tasks.test)
 }
 
-tasks.getByName("compileJava") {
-    dependsOn("processResources")
+tasks.compileJava {
+    dependsOn(tasks.processResources)
+}
+
+jib {
+    to {
+        image = "exxbrain/architecture"
+    }
+}
+
+tasks.build {
+    dependsOn(tasks.jib)
 }
