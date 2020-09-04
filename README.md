@@ -45,3 +45,5 @@ Build docker image
 ```
 ./gradlew build && docker build -t exxbrain/spring-boot-demo .
 ```
+
+http://qr.nspk.ru
