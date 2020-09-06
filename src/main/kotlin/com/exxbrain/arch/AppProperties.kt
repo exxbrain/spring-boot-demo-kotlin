@@ -8,4 +8,6 @@ class AppProperties {
     val cors: CorsConfiguration = CorsConfiguration()
     var version: String = ""
     var hello: String = ""
+    var proxyBasePath: String = ""
+
 }

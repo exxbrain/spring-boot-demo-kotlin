@@ -10,7 +10,7 @@ data class User(
         @Id
         @GeneratedValue(generator = "uuid", strategy= GenerationType.IDENTITY)
         @GenericGenerator(name = "uuid", strategy = "uuid2")
-        val id: String,
+        val id: String?,
 
         @get:NotBlank
         @get:NotNull

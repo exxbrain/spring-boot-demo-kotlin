@@ -1,14 +1,10 @@
 package com.exxbrain.arch.entity
 
 import org.springframework.data.repository.CrudRepository
-import org.springframework.data.rest.core.annotation.RepositoryRestResource
+import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 
-@RepositoryRestResource
-interface UserRepository : CrudRepository<User, String> {
-//    fun save(entity: User): User
-//    fun findAll(): Iterable<User>
-//    fun delete(entity: User)
-//    fun findById(id: String): Optional<User>
-//    fun deleteAll()
-}
+@Repository
+@Transactional
+interface UserRepository : CrudRepository<User, String>

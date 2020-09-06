@@ -75,8 +75,11 @@ val springCloudVersion by extra ("Hoxton.SR7")
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-rest")
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.liquibase:liquibase-core")
@@ -89,6 +92,7 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+    testImplementation("com.flextrade.jfixture:jfixture:2.7.2")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 

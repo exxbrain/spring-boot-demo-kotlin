@@ -9,10 +9,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.env.get
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration
-import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener
-import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
-import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -20,7 +16,6 @@ import org.springframework.web.filter.CorsFilter
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.net.InetAddress
 import java.util.*
-import javax.persistence.EntityManager
 
 
 @SpringBootApplication
@@ -28,9 +23,8 @@ import javax.persistence.EntityManager
 @EnableTransactionManagement
 @EnableConfigurationProperties(AppProperties::class)
 class ArchApplication(
-        private val properties: AppProperties,
-        private val entityManager: EntityManager)
-    : WebMvcConfigurer, RepositoryRestConfigurer {
+        private val properties: AppProperties)
+    : WebMvcConfigurer {
 
     @Bean
     fun corsFilter(): CorsFilter {
@@ -40,11 +34,6 @@ class ArchApplication(
             source.registerCorsConfiguration("/**", config)
         }
         return CorsFilter(source)
-    }
-
-    override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration) {
-        entityManager.metamodel.entities
-                .forEach { config.exposeIdsFor(it.javaType) }
     }
 }
 

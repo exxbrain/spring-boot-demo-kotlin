@@ -1,4 +1,4 @@
-package com.exxbrain.arch.controller.main
+package com.exxbrain.arch.web.main
 
 import com.exxbrain.arch.AppProperties
 import org.springframework.web.bind.annotation.GetMapping
