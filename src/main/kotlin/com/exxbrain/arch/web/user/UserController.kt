@@ -4,6 +4,8 @@ import com.exxbrain.arch.AppProperties
 import com.exxbrain.arch.web.NotFoundException
 import com.exxbrain.arch.entity.User
 import com.exxbrain.arch.entity.UserRepository
+import io.micrometer.core.annotation.Counted
+import io.micrometer.core.annotation.Timed
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller

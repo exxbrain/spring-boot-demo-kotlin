@@ -38,12 +38,12 @@ to compile before)
 
 ### Run jar
 ```
-./gradlew build && java -jar build/libs/spring-boot-demo-0.0.1-SNAPSHOT.jar
+./gradlew build && java -jar build/libs/*.jar
 ```
 ### Docker
 Build docker image
 ```
-./gradlew build && docker build -t exxbrain/spring-boot-demo .
+./gradlew build && docker build -t exxbrain/architecture .
 ```
 
 http://qr.nspk.ru
